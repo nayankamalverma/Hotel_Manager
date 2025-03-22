@@ -9,12 +9,15 @@ namespace Assets.Scripts.Items
 	{
 		[SerializeField] ItemSO bottel1;
 		[SerializeField] List<IItemContainer> selfs;
+		[SerializeField] GameObject dollarPrefab;
 
 		public BottelPool bottelPool {  get; private set; }
+		public DollarPool dollarPool { get; private set; }
 
 		private void Start()
 		{
 			bottelPool = new BottelPool(bottel1.prefab);
+			dollarPool = new DollarPool(dollarPrefab);
 			SetServices();
 		}
 
