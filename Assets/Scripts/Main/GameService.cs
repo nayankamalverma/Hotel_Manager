@@ -1,3 +1,4 @@
+using Assets.Scripts.Currency;
 using Assets.Scripts.Items;
 using Assets.Scripts.Player;
 using UnityEngine;
@@ -8,10 +9,13 @@ namespace Assets.Scripts.Main
     {
         [SerializeField] PlayerController playerController;
         [SerializeField] ItemService itemService;
-
+        
+        private CurrencyService currencyService;
         private void Awake()
         {
-            playerController.SetService(itemService);
+            currencyService = new CurrencyService(); 
+
+            playerController.SetService(itemService,currencyService);
         }
 
     }

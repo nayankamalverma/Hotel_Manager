@@ -10,7 +10,6 @@ namespace Assets.Scripts.Items
 		[SerializeField] private List<Transform> bottelPlace;
 		[SerializeField] private float removeTime=3f;
 		[SerializeField] private Transform dollarPlace;
-		[SerializeField] private GameObject dollar;
 
 		private float YAxis;
 		private int itemCnt=0;

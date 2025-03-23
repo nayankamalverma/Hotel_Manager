@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using Assets.Scripts.Items;
 using UnityEngine;
 using System.Linq;
+using Assets.Scripts.Currency;
 
 namespace Assets.Scripts.Player
 {
@@ -22,10 +23,11 @@ namespace Assets.Scripts.Player
 		private ItemType currentItem;
 		float itemHight;
         private ItemService itemService;
-
-		public void SetService(ItemService itemService)
+		private CurrencyService currencyService;
+        public void SetService(ItemService itemService, CurrencyService currencyService)
 		{
 			this.itemService = itemService;
+			this.currencyService = currencyService;	
 		}
 		private void Start()
 		{
@@ -137,5 +139,14 @@ namespace Assets.Scripts.Player
 					transform.LookAt(dir);
 			}
 		}
-	}
+
+        private void OnTriggerEnter(Collider other)
+        {
+            if (other.CompareTag("dollar"))
+			{
+				itemService.dollarPool.ReturnDollar(other.gameObject);
+				currencyService.dollar.AddCurrency(5);
+			}
+        }
+    }
 }
