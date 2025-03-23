@@ -14,6 +14,7 @@ namespace Assets.Scripts.Main
         [SerializeField] ItemService ItemService;
         [SerializeField] UIService UIService;
         [SerializeField] UnlockService UnlockService;
+        [SerializeField] NavMeshService NavMeshService;
 
         private EventService eventService;
         private CurrencyService currencyService;
@@ -25,9 +26,10 @@ namespace Assets.Scripts.Main
             currencyService = new CurrencyService();
 
             PlayerController.SetService(ItemService, currencyService);
-            ItemService.SetServices(eventService);
+            ItemService.SetServices(eventService, currencyService);
             UIService.SetService(eventService);
             UnlockService.SetService(eventService, currencyService);
+            NavMeshService.SetService(eventService);
         }
 
     }

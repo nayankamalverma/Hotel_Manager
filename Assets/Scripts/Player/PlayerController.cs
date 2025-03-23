@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using Assets.Scripts.Items;
 using UnityEngine;
-using System.Linq;
 using Assets.Scripts.Currency;
 
 namespace Assets.Scripts.Player
@@ -16,10 +15,10 @@ namespace Assets.Scripts.Player
 		private float rotateSpeed;
 		[SerializeField]
 		Transform itemPlace;
+		[SerializeField] private List<Transform> items = new List<Transform>();
 
 		private Camera cam;
 		private Vector3 dir;
-		[SerializeField] private List<Transform> items = new List<Transform>();
 		private ItemType currentItem;
 		float itemHight;
         private ItemService itemService;
@@ -45,7 +44,7 @@ namespace Assets.Scripts.Player
         }
         private void PositionItems()
         {
-			itemHight = itemService.getItemHight(currentItem);
+            itemHight = itemService.getItemHight(currentItem);
             items[1].position = itemPlace.position;
             for (int i = 2; i < items.Count; i++) {
 				Transform item1 = items[i-1];
@@ -91,7 +90,7 @@ namespace Assets.Scripts.Player
 		}
 		private void Anim()
 		{
-            if (Input.GetMouseButtonDown(0))
+            if (Input.GetMouseButton(0))
             {
                 if (items.Count > 1)
                 {

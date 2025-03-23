@@ -1,8 +1,8 @@
 ﻿using Assets.Scripts.Utiltities.ScriptableObjects;
 using UnityEngine;
 using System.Collections.Generic;
-using System;
 using Assets.Scripts.Utilities.Events;
+using Assets.Scripts.Currency;
 
 namespace Assets.Scripts.Items
 {
@@ -16,22 +16,31 @@ namespace Assets.Scripts.Items
 		public BottelPool bottelPool {  get; private set; }
 		public DollarPool dollarPool { get; private set; }
 
+		public CurrencyService currencyService {  get; private set; }
+
 		private void Start()
 		{
 			bottelPool = new BottelPool(bottel1.prefab);
 			dollarPool = new DollarPool(dollarPrefab);
 		}
 
-        public void SetServices(EventService eventService)
+        public void SetServices(EventService eventService,CurrencyService currencyService)
         {
 			this.eventService = eventService;
+			this.currencyService = currencyService;
 			foreach(var s in shelfs)
 			{
 				s.SetService(this);
 			}
+            AddEventListeners();
         }
 
-		private void OnNewShelfUnlock(IItemContainer item)
+        private void AddEventListeners()
+        {
+			eventService.OnItemUnlock.AddListener(OnNewShelfUnlock);
+        }
+
+        private void OnNewShelfUnlock(IItemContainer item)
 		{
 			shelfs.Add(item);
 			item.SetService(this);
@@ -53,5 +62,10 @@ namespace Assets.Scripts.Items
 		{
 			if (type == ItemType.Bottel1) bottelPool.ReturnBottel(item);
 		}
-	}
+
+        private void OnDestroy()
+        {
+            eventService.OnItemUnlock.RemoveListener(OnNewShelfUnlock);
+        }
+    }
 }

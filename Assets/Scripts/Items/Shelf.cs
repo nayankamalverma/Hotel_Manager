@@ -1,6 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
-using DG.Tweening;
+using Assets.Scripts.Utiltities.ScriptableObjects;
 using UnityEngine;
 
 namespace Assets.Scripts.Items
@@ -10,20 +10,30 @@ namespace Assets.Scripts.Items
 		[SerializeField] private List<Transform> bottelPlace;
 		[SerializeField] private float removeTime=3f;
 		[SerializeField] private Transform dollarPlace;
+		[SerializeField] private ItemSO itemSO;
+		[SerializeField] private int initUpgradeCost;
+		[SerializeField] private UpgradeItem upgradeItem;
 
 		private int itemCnt=0;
 		int delay = 0, dollarPlaceIndex ;
+		int cost = 0;
+		int level;
 
         private void Start()
 		{
+			cost = itemSO.itemPrice;
+			level = 1;
 			itemCnt = 0;
 			dollarPlaceIndex = 0;
+			upgradeItem.SetRefrences(this);
 		}
 		private void MakeMoney()
 		{
-			GameObject newDollar = itemService.dollarPool.GetDollar();
-			newDollar.transform.position = dollarPlace.GetChild(dollarPlaceIndex).position;
-			newDollar.transform.rotation = dollarPlace.GetChild(dollarPlaceIndex).rotation;
+			int cnt = cost/5;
+			while(cnt>0){
+				GameObject newDollar = itemService.dollarPool.GetDollar();
+				newDollar.transform.position = dollarPlace.GetChild(dollarPlaceIndex).position;
+				newDollar.transform.rotation = dollarPlace.GetChild(dollarPlaceIndex).rotation;
 
 				if (dollarPlaceIndex < dollarPlace.childCount - 1)
 				{
@@ -33,6 +43,8 @@ namespace Assets.Scripts.Items
 				{
 					dollarPlaceIndex = 0;
 				}
+				cnt--;
+			}
 		}
 
 		public void SetItem(Transform item)
@@ -65,7 +77,11 @@ namespace Assets.Scripts.Items
 			}
 			return false;
 		}
-
+		public void IncreacePrice()
+		{
+			cost += 5; //can add a multiplier variable in itemSo 
+			level++;
+		}
 		private Transform GetFirstEmptySpot()
 		{
 			foreach (Transform spot in bottelPlace)
@@ -77,5 +93,6 @@ namespace Assets.Scripts.Items
 			}
 			return null;
 		}
+		public int GetInitUpgradeCost() => initUpgradeCost;
 	}
 }

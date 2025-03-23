@@ -15,6 +15,10 @@ namespace Assets.Scripts.Unlock
 
         private UnlockService unlockService;
 
+        private void Start()
+        {
+            priceText.text = "$ " + itemSo.unlockCost;
+        }
         public void SetService(UnlockService unlockService)
         {
             this.unlockService = unlockService;
@@ -24,13 +28,14 @@ namespace Assets.Scripts.Unlock
         {
             if (other.CompareTag("Player"))
             {
-                Debug.Log("1");
                 Dollar currency = unlockService.currencyService.dollar;
                 if (itemSo.unlockCost <= currency.GetCurrentBalance())
                 {
                     GameObject i = Instantiate(itemSo.prefab, transform.parent.position, quaternion.identity);
                     currency.SubtractCurrency(itemSo.unlockCost);
                     i.transform.DOScale(1f, 1f).SetEase(Ease.OutElastic);
+                    gameObject.SetActive(false);
+                    unlockService.eventService.OnItemUnlock.Invoke(i.GetComponentInChildren<Shelf>());
                 }
                 else
                 {
