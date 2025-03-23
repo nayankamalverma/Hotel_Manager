@@ -11,5 +11,6 @@ namespace Assets.Scripts.Items
         {
             this.itemService = itemService;
         }
+        public ItemService GetItemService() => itemService;
     }
 }
