@@ -7,6 +7,7 @@ namespace Assets.Scripts.Utiltities.ScriptableObjects
     public class ItemSO : ScriptableObject
 	{
 		public GameObject prefab;
+		public int itemPrice=5;
 		public float itemHeight;
 		public ItemType itemType;
 	}
