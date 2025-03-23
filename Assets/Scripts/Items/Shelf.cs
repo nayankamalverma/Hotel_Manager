@@ -18,6 +18,7 @@ namespace Assets.Scripts.Items
 		int delay = 0, dollarPlaceIndex ;
 		int cost = 0;
 		int level;
+		int maxLevel = 5;
 
         private void Start()
 		{
@@ -81,6 +82,7 @@ namespace Assets.Scripts.Items
 		{
 			cost += 5; //can add a multiplier variable in itemSo 
 			level++;
+			if(level==maxLevel)upgradeItem.gameObject.SetActive(false);
 		}
 		private Transform GetFirstEmptySpot()
 		{
