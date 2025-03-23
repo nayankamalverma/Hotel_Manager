@@ -2,15 +2,17 @@
 using UnityEngine;
 using System.Collections.Generic;
 using System;
+using Assets.Scripts.Utilities.Events;
 
 namespace Assets.Scripts.Items
 {
 	public class ItemService : MonoBehaviour
 	{
 		[SerializeField] ItemSO bottel1;
-		[SerializeField] List<IItemContainer> selfs;
+		[SerializeField] List<IItemContainer> shelfs;
 		[SerializeField] GameObject dollarPrefab;
-
+		
+		public EventService eventService { get; private set; }
 		public BottelPool bottelPool {  get; private set; }
 		public DollarPool dollarPool { get; private set; }
 
@@ -18,16 +20,22 @@ namespace Assets.Scripts.Items
 		{
 			bottelPool = new BottelPool(bottel1.prefab);
 			dollarPool = new DollarPool(dollarPrefab);
-			SetServices();
 		}
 
-        private void SetServices()
+        public void SetServices(EventService eventService)
         {
-			foreach(var s in selfs)
+			this.eventService = eventService;
+			foreach(var s in shelfs)
 			{
 				s.SetService(this);
 			}
         }
+
+		private void OnNewShelfUnlock(IItemContainer item)
+		{
+			shelfs.Add(item);
+			item.SetService(this);
+		}
 
         public GameObject GetItem(ItemType type)
 		{

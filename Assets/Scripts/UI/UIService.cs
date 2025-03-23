@@ -1,3 +1,4 @@
+using Assets.Scripts.Utilities.Events;
 using TMPro;
 using UnityEngine;
 
@@ -9,6 +10,11 @@ namespace Assets.Scripts.UI
         [Header("Game Play UI")]
         [SerializeField] private TextMeshProUGUI dollarText;
 
+        private EventService eventService;
+        public void SetService(EventService eventService)
+        {
+            this.eventService = eventService;
+        }
         private void Start()
         {
             UpdateDollarText();

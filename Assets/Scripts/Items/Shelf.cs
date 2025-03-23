@@ -11,14 +11,12 @@ namespace Assets.Scripts.Items
 		[SerializeField] private float removeTime=3f;
 		[SerializeField] private Transform dollarPlace;
 
-		private float YAxis;
 		private int itemCnt=0;
 		int delay = 0, dollarPlaceIndex ;
 
         private void Start()
 		{
 			itemCnt = 0;
-			YAxis = 0;
 			dollarPlaceIndex = 0;
 		}
 		private void MakeMoney()
@@ -26,15 +24,15 @@ namespace Assets.Scripts.Items
 			GameObject newDollar = itemService.dollarPool.GetDollar();
 			newDollar.transform.position = dollarPlace.GetChild(dollarPlaceIndex).position;
 			newDollar.transform.rotation = dollarPlace.GetChild(dollarPlaceIndex).rotation;
-			
-			if (dollarPlaceIndex < dollarPlace.childCount - 1){
-                dollarPlaceIndex++;
-			}
-			else
-			{
-                dollarPlaceIndex = 0;
-				YAxis += 0.5f;
-			}
+
+				if (dollarPlaceIndex < dollarPlace.childCount - 1)
+				{
+					dollarPlaceIndex++;
+				}
+				else
+				{
+					dollarPlaceIndex = 0;
+				}
 		}
 
 		public void SetItem(Transform item)

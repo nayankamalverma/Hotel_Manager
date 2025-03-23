@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a9c5ece57d611c4cb996c8d1fa654ed, type: 3}
+  m_Name: BottelSelf
+  m_EditorClassIdentifier: 
+  itemType: 2
+  unlockCost: 30
+  prefab: {fileID: 8600673954998435181, guid: 2d292b04d25f4d74ab4b21b3e1e99f11, type: 3}
